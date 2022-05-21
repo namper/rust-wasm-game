@@ -1,0 +1,1 @@
+/Users/namper/Developer/local/rust-wasm-game/rust-web-game/target/wasm32-unknown-unknown/release/librust_web_game.rlib: /Users/namper/Developer/local/rust-wasm-game/rust-web-game/src/lib.rs /Users/namper/Developer/local/rust-wasm-game/rust-web-game/src/utils.rs
