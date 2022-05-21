@@ -1,5 +1,5 @@
 <div align="center">
-  Rust web game
+  Rust web game<br>
   <sub>Built with 🦀🕸 by <a href="https://rustwasm.github.io/">The Rust and WebAssembly Working Group</a></sub>
 </div>
 
