@@ -34,7 +34,7 @@
     "copy-webpack-plugin": "^5.0.0"
   },
   "dependencies": {
-    "rust-web-game": "file:./pkg"
+    "rust-web-game": "file:../pkg"
   },
   "engines" : { 
     "npm" : ">=7.0.0",
