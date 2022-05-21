@@ -1,3 +1,4 @@
-import * as wasm from "rust-web-game";
+import {GameController} from "./src/game-controller"
 
-wasm.greet();
+const gameController = new GameController()
+gameController.run()
