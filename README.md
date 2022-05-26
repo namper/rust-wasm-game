@@ -29,3 +29,7 @@ wasm-pack publish
   for logging panic messages to the developer console.
 * [`wee_alloc`](https://github.com/rustwasm/wee_alloc), an allocator optimized
   for small code size.
+  
+  
+ ## Plan
+ [] Implement movable object
