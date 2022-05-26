@@ -1,9 +1,5 @@
 mod utils;
 
-#[macro_use]
-extern crate fstrings;
-
-
 use wasm_bindgen::prelude::*;
 
 // When the `wee_alloc` feature is enabled, use `wee_alloc` as the global
@@ -21,23 +17,37 @@ extern {
 }
 
 #[wasm_bindgen]
-pub struct Game {
-    pub width: i32,
-    pub height: i32,
+#[derive(Debug, Copy, Clone)]
+pub struct Vec{
+    pub x: f64,
+    pub y: f64,
+}
+
+
+#[wasm_bindgen]
+pub struct Game{
+    pub width: f64,
+    pub height: f64,
+    pub pos: Vec,
+    pub speed: f64,
 }
 
 
 #[wasm_bindgen]
 impl Game{
     #[wasm_bindgen(constructor)]
-    pub fn new(width: i32, height: i32) -> Game{
-        Game{
-            width,
-            height
-        }   
+    pub fn new(width: f64, height: f64) -> Game{
+        Game{width, height, pos: Vec{x: 0.0, y: 0.0}, speed: 0.1,}
     }
 
 
-    pub fn process(&mut self, timespan: f64){}
+    pub fn process(&mut self, _timespan: f64){
+        // here we have to mutate ourself
+        self.pos.x += self.speed;
+        if self.pos.x > self.width {
+            self.pos.x = -1.0;
+        }
+
+    }
 
 }

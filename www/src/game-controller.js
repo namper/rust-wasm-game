@@ -22,14 +22,8 @@ export class GameController{
     }
 
     render(){
-        this.view.render()
+        this.view.render(this.game.pos)
     }
-
-
-    run(){
-        this.render()
-    }
-
 
     tick() {
         const lastUpdate = Date.now()

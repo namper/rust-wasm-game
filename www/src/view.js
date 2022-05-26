@@ -8,9 +8,6 @@ export class View {
       this.container = document.getElementById('container')
       this.onViewChange = onViewChange
       this.setUp()
-
-      this.pos = [0, 0];
-      this.speed = 10/100;
     
       window.addEventListener('resize', () => {
         const [child] = this.container.children
@@ -38,7 +35,7 @@ export class View {
     }
 
 
-    render() {
+    render(pos) {
         this.context.clearRect(
           0,
           0,
@@ -62,17 +59,10 @@ export class View {
         )
         this.context.globalAlpha = 1
 
-        // moving rectangle
-        this.pos[0] = this.pos[0] + this.speed;
-        if (this.pos[0] > this.gameWidth){
-            this.pos[0] = -1;
-
-        }
-
         this.context.fillStyle = "#FF0000";
         this.context.fillRect(
-            this.pos[0] * this.unitOnScreen,
-            this.pos[1],
+            pos.x * this.unitOnScreen,
+            pos.y,
             this.unitOnScreen,
             this.unitOnScreen
         )
