@@ -32,4 +32,4 @@ wasm-pack publish
   
   
  ## Plan
- [] Implement movable object
+ - [] Implement movable object
