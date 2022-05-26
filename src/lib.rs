@@ -38,9 +38,6 @@ impl Game{
     }
 
 
-    pub fn process(&mut self, timespan: f64){
-        let s: String = f!("Game loop processed by rust {timespan}");
-        log(&s);
-    }
+    pub fn process(&mut self, timespan: f64){}
 
 }

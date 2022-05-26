@@ -8,7 +8,10 @@ export class View {
       this.container = document.getElementById('container')
       this.onViewChange = onViewChange
       this.setUp()
-  
+
+      this.pos = [0, 0];
+      this.speed = 10/100;
+    
       window.addEventListener('resize', () => {
         const [child] = this.container.children
         if (child) {
@@ -27,7 +30,6 @@ export class View {
         )
         this.projectDistance = distance => distance * this.unitOnScreen
         this.projectPosition = position => position.scale_by(this.unitOnScreen)
-    
         const canvas = document.createElement('canvas')
         this.container.appendChild(canvas)
         this.context = canvas.getContext('2d')
@@ -43,7 +45,7 @@ export class View {
           this.context.canvas.width,
           this.context.canvas.height
         )
-        
+
         this.context.globalAlpha = 0.2
         this.context.fillStyle = 'black'
         getRange(this.gameWidth).forEach(column =>
@@ -59,5 +61,20 @@ export class View {
           )
         )
         this.context.globalAlpha = 1
+
+        // moving rectangle
+        this.pos[0] = this.pos[0] + this.speed;
+        if (this.pos[0] > this.gameWidth){
+            this.pos[0] = -1;
+
+        }
+
+        this.context.fillStyle = "#FF0000";
+        this.context.fillRect(
+            this.pos[0] * this.unitOnScreen,
+            this.pos[1],
+            this.unitOnScreen,
+            this.unitOnScreen
+        )
       }
   }
