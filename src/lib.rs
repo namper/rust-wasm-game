@@ -80,21 +80,38 @@ impl Game {
     }
 
     pub fn process(&mut self, _timespan: f64) {
-        match self.hmovement{
-            Movement::RIGHT => self.pos.x += self.speed,
-            Movement::LEFT => self.pos.x -= self.speed,
+        match self.hmovement {
+            Movement::RIGHT => {
+                // project next position is in bounds 
+                if self.pos.x < self.width - 1.0 - self.speed{
+                    self.pos.x += self.speed
+                }
+            }
+            Movement::LEFT => {
+                if self.pos.x > 0.0 {
+                    self.pos.x -= self.speed
+                }
+            }
             _ => (),
         }
 
-        match self.vmovement{
-            Movement::DOWN => self.pos.y += self.speed,
-            Movement::UP => self.pos.y -= self.speed,
+        match self.vmovement {
+            Movement::DOWN => {
+                if self.pos.y < self.height - 1.0 - self.speed{
+                    self.pos.y += self.speed
+                }
+            },
+            Movement::UP => {
+                if self.pos.y > 0.0 {
+                    self.pos.y -= self.speed
+                }
+            },
             _ => (),
         }
     }
 
     pub fn key_down(&mut self, event: web_sys::KeyboardEvent) {
-        match js_event_to_movement(event){
+        match js_event_to_movement(event) {
             Some((m, Direction::Horizontal)) => self.hmovement = m,
             Some((m, Direction::Vertical)) => self.vmovement = m,
             None => (),
@@ -102,17 +119,17 @@ impl Game {
     }
 
     pub fn key_up(&mut self, event: web_sys::KeyboardEvent) {
-        match js_event_to_movement(event){
+        match js_event_to_movement(event) {
             Some((m, Direction::Horizontal)) => {
-                if m == self.hmovement { 
+                if m == self.hmovement {
                     self.hmovement = Movement::NOP
                 }
-            },
+            }
             Some((m, Direction::Vertical)) => {
-                if m == self.vmovement { 
+                if m == self.vmovement {
                     self.vmovement = Movement::NOP
                 }
-            },
+            }
             None => (),
         }
     }
