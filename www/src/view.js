@@ -61,7 +61,7 @@ export class View {
         this.context.fillStyle = "#FF0000";
         this.context.fillRect(
             pos.x * this.unitOnScreen,
-            pos.y,
+            pos.y * this.unitOnScreen,
             this.unitOnScreen,
             this.unitOnScreen
         )
