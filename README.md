@@ -33,5 +33,5 @@ wasm-pack publish
   
  ## Plan
  - [x] Implement movable object
- - [ ] Introdouce user controls
+ - [x] Introdouce user controls
  - [ ] Define game cocnept
