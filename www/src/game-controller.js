@@ -44,7 +44,7 @@ export class GameController{
         this.render()
 
       }
-    
+
       run() {
         this.setup_key_events();
         setInterval(this.tick.bind(this), 1000 / config.FPS)

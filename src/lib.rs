@@ -32,21 +32,27 @@ pub enum Movement {
     NOP,
 }
 
+#[wasm_bindgen]
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum Direction {
+    Horizontal,
+    Vertical,
+}
 
-pub fn js_event_to_movement(event: web_sys::KeyboardEvent) -> Movement{
-        let code = &event.code();
+pub fn js_event_to_movement(event: web_sys::KeyboardEvent) -> Option<(Movement, Direction)> {
+    let code = &event.code();
 
-        if code == "KeyS" {
-              Movement::DOWN
-        }else if code == "KeyW"{
-              Movement::UP
-        }else if code == "KeyA"{
-             Movement::LEFT
-        }else if code == "KeyD"{
-            Movement::RIGHT
-        }else{
-            Movement::NOP
-        }
+    if code == "KeyS" {
+        Some((Movement::DOWN, Direction::Vertical))
+    } else if code == "KeyW" {
+        Some((Movement::UP, Direction::Vertical))
+    } else if code == "KeyA" {
+        Some((Movement::LEFT, Direction::Horizontal))
+    } else if code == "KeyD" {
+        Some((Movement::RIGHT, Direction::Horizontal))
+    } else {
+        None
+    }
 }
 
 #[wasm_bindgen]
@@ -55,7 +61,8 @@ pub struct Game {
     pub height: f64,
     pub pos: Vec,
     pub speed: f64,
-    pub movement: Movement,
+    pub hmovement: Movement,
+    pub vmovement: Movement,
 }
 
 #[wasm_bindgen]
@@ -67,30 +74,46 @@ impl Game {
             height,
             pos: Vec { x: 0.0, y: 0.0 },
             speed: 0.1,
-            movement: Movement::NOP,
+            hmovement: Movement::NOP,
+            vmovement: Movement::NOP,
         }
     }
 
     pub fn process(&mut self, _timespan: f64) {
-        match self.movement {
-            Movement::DOWN => self.pos.y += self.speed,
-            Movement::UP => self.pos.y -= self.speed,
+        match self.hmovement{
             Movement::RIGHT => self.pos.x += self.speed,
             Movement::LEFT => self.pos.x -= self.speed,
-            Movement::NOP => (),
+            _ => (),
         }
 
+        match self.vmovement{
+            Movement::DOWN => self.pos.y += self.speed,
+            Movement::UP => self.pos.y -= self.speed,
+            _ => (),
+        }
     }
 
     pub fn key_down(&mut self, event: web_sys::KeyboardEvent) {
-        self.movement = js_event_to_movement(event)
+        match js_event_to_movement(event){
+            Some((m, Direction::Horizontal)) => self.hmovement = m,
+            Some((m, Direction::Vertical)) => self.vmovement = m,
+            None => (),
+        }
     }
 
     pub fn key_up(&mut self, event: web_sys::KeyboardEvent) {
-        let movement = js_event_to_movement(event);
-        if movement == self.movement {
-            self.movement = Movement::NOP
+        match js_event_to_movement(event){
+            Some((m, Direction::Horizontal)) => {
+                if m == self.hmovement { 
+                    self.hmovement = Movement::NOP
+                }
+            },
+            Some((m, Direction::Vertical)) => {
+                if m == self.vmovement { 
+                    self.vmovement = Movement::NOP
+                }
+            },
+            None => (),
         }
-
     }
 }
