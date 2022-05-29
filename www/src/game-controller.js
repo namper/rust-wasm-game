@@ -26,9 +26,13 @@ export class GameController{
     }
 
     setup_key_events(){
-        document.addEventListener("keypress", (ev) => {
-            this.game.key_event(ev);
-        })
+        document.addEventListener("keydown", (ev) => {
+            this.game.key_down(ev);
+        });
+
+        document.addEventListener("keyup", (ev) => {
+            this.game.key_up(ev);
+        });
     }
 
     tick() {
