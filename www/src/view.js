@@ -34,7 +34,6 @@ export class View {
         canvas.setAttribute('height', this.projectDistance(this.gameHeight))
     }
 
-
     render(pos) {
         this.context.clearRect(
           0,

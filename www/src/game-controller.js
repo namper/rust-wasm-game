@@ -1,4 +1,4 @@
-import {Game} from 'rust-web-game'
+import { Game } from 'rust-web-game'
 import config from './config'
 import { View } from './view'
 
@@ -25,6 +25,12 @@ export class GameController{
         this.view.render(this.game.pos)
     }
 
+    setup_key_events(){
+        document.addEventListener("keypress", (ev) => {
+            this.game.key_event(ev);
+        })
+    }
+
     tick() {
         const lastUpdate = Date.now()
         if (this.lastUpdate) {
@@ -32,9 +38,11 @@ export class GameController{
         }
         this.lastUpdate = lastUpdate
         this.render()
+
       }
     
       run() {
+        this.setup_key_events();
         setInterval(this.tick.bind(this), 1000 / config.FPS)
       }
 }
